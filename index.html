@@ -1,0 +1,703 @@
+﻿<!DOCTYPE html>
+<html lang="ky">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>АЯНА  КЫЗ УЗАТУУ</title>
+<meta name="description" content="ТОЙГО ЧАКЫРУУ">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ink: #3a2e2a;
+    --ink-light: #6b5b55;
+    --gold: #b8946a;
+    --gold-light: #d4b896;
+    --cream: #faf6f0;
+    --cream-dark: #f0e8de;
+    --white: #ffffff;
+    --font-serif: Georgia, 'Times New Roman', serif;
+    --font-script: 'Brush Script MT', 'Segoe Script', cursive;
+    --font-sans: 'Helvetica Neue', Arial, sans-serif;
+    --shadow: 0 4px 20px rgba(58,46,42,0.08);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--ink);
+    background: var(--cream);
+    overflow-x: hidden;
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  img { max-width: 100%; display: block; }
+
+  .page { position: relative; width: 100%; overflow: hidden; }
+
+  .section {
+    position: relative;
+    width: 100%;
+    padding: 70px 20px 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .section--white { background: var(--white); }
+
+  /* Декоративные круги */
+  .decor {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    background: radial-gradient(circle at 30% 30%, var(--gold-light), transparent 70%);
+    opacity: 0.35;
+    filter: blur(2px);
+  }
+  .decor--a { animation: floatA 12s ease-in-out infinite; }
+  .decor--b { animation: floatB 15s ease-in-out infinite; }
+
+  @keyframes floatA {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(-20px); }
+  }
+  @keyframes floatB {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(18px); }
+  }
+
+  .content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  /* Типографика */
+  .script {
+    font-family: var(--font-script);
+    color: var(--gold);
+    font-size: 72px;
+    line-height: 1.1;
+  }
+  .txt { font-family: var(--font-serif); color: var(--ink); }
+  .txt-head { font-family: var(--font-serif); font-weight: 700; color: var(--ink); }
+  .txt-ital { font-style: italic; color: var(--ink-light); }
+  .txt-spaced { letter-spacing: 4px; }
+  .txt-muted { color: var(--ink-light); font-size: 18px; }
+
+  .cover-name { font-size: 76px; margin-bottom: 6px; }
+  .cover-subtitle { font-size: 28px; margin-bottom: 6px; }
+  .cover-date { font-size: 20px; }
+
+  .invite-name { font-family: var(--font-script); color: var(--gold); font-size: 38px; }
+
+  /* Разделитель */
+  .divider { width: 180px; margin: 26px auto; opacity: 0.7; }
+
+  /* Стрелка вниз */
+  .chevron {
+    width: 40px;
+    margin: 30px auto 10px;
+    animation: bounceDown 2s ease-in-out infinite;
+  }
+  .chevron svg { display: block; width: 100%; height: auto; }
+  @keyframes bounceDown {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(8px); }
+  }
+
+  /* Дата */
+  .date-block { margin: 24px 0; }
+  .date-line {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    font-family: var(--font-serif);
+    font-size: 52px;
+    line-height: 1.1;
+    letter-spacing: 2px;
+  }
+  .date-ghost { color: var(--gold-light); opacity: 0.45; }
+  .date-main  { color: var(--ink); }
+  .date-time { font-size: 20px; color: var(--ink-light); margin-top: 14px; letter-spacing: 1px; }
+
+  /* Календарь */
+  .calendar { margin: 26px auto 10px; max-width: 320px; width: 100%; }
+  .cal-month {
+    font-size: 24px;
+    font-family: var(--font-serif);
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+  }
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+  .cal-cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: var(--ink);
+    border-radius: 50%;
+  }
+  .cal-header {
+    font-weight: 700;
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+  .cal-muted { color: #c5b8b0; }
+  .cal-today-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
+  .cal-today-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    animation: pulseRing 2s ease-in-out infinite;
+  }
+  .cal-today { background: var(--gold); color: #fff; font-weight: 700; }
+  @keyframes pulseRing {
+    0%,100% { transform: scale(1); opacity: 0.5; }
+    50%     { transform: scale(1.18); opacity: 0.1; }
+  }
+
+  /* Таймер */
+  .timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin: 22px auto;
+    padding: 20px 14px;
+    background: var(--white);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    max-width: 380px;
+    width: 100%;
+  }
+  .timer-unit { display: flex; flex-direction: column; align-items: center; min-width: 58px; }
+  .timer-cell {
+    font-family: var(--font-serif);
+    font-size: 34px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .timer-label {
+    font-size: 12px;
+    color: var(--ink-light);
+    margin-top: 6px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .timer-sep { font-size: 26px; color: var(--gold); padding-bottom: 20px; }
+
+  /* Форма */
+  .form { max-width: 340px; margin: 24px auto 0; text-align: left; width: 100%; }
+  .field {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1.5px solid var(--cream-dark);
+    border-radius: 12px;
+    font-size: 16px;
+    font-family: var(--font-sans);
+    background: var(--white);
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    margin-bottom: 16px;
+  }
+  .field:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(184,148,106,0.15); }
+  .field::placeholder { color: #b8a89e; }
+
+  .radios { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+  .radio {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 1.5px solid var(--cream-dark);
+    border-radius: 12px;
+    background: var(--white);
+    cursor: pointer;
+    transition: border-color 0.3s, background 0.3s;
+    font-size: 15px;
+  }
+  .radio:hover { border-color: var(--gold-light); background: #fdf9f4; }
+  .radio input[type="radio"] { display: none; }
+  .radio-dot {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    position: relative;
+    flex-shrink: 0;
+    transition: border-color 0.3s;
+  }
+  .radio input:checked + .radio-dot { border-color: var(--gold); }
+  .radio input:checked + .radio-dot::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 10px; height: 10px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+  .radio input:checked ~ .radio-label { color: var(--gold); font-weight: 600; }
+  .radio-label { transition: color 0.3s; }
+
+  .submit {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: var(--gold);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    font-size: 17px;
+    font-family: var(--font-serif);
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 6px 16px rgba(184,148,106,0.35);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .submit:hover { background: #a07d56; transform: translateY(-2px); }
+  .submit:active { transform: translateY(0); }
+
+  /* 2GIS */
+  .map-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px auto;
+    padding: 12px 24px;
+    background: var(--gold);
+    color: #fff;
+    border-radius: 30px;
+    text-decoration: none;
+    font-family: var(--font-serif);
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 14px rgba(184,148,106,0.35);
+    transition: transform 0.25s, background 0.25s;
+    text-align: center;
+    max-width: 100%;
+  }
+  .map-link:hover { transform: translateY(-2px); background: #a07d56; }
+  .map-link:active { transform: translateY(0); }
+
+  /* Появление при загрузке */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    animation: reveal 0.9s ease forwards;
+  }
+  @keyframes reveal {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ========================================================= */
+  /* АДАПТАЦИЯ                                                    */
+  /* ========================================================= */
+
+  /* Планшеты и небольшие ноутбуки */
+  @media (max-width: 768px) {
+    .section { padding: 60px 18px 70px; }
+    .content { max-width: 460px; }
+  }
+
+  /* Телефоны (основная адаптация) */
+  @media (max-width: 600px) {
+    .section { padding: 50px 16px 60px; }
+
+    .script { font-size: 54px; }
+    .cover-name { font-size: 56px; }
+    .cover-subtitle { font-size: 22px; }
+    .cover-date { font-size: 16px; }
+    .invite-name { font-size: 30px; }
+
+    .divider { width: 150px; margin: 22px auto; }
+    .chevron { width: 36px; margin: 24px auto 8px; }
+
+    .date-line { font-size: 40px; gap: 14px; letter-spacing: 1px; }
+    .date-time { font-size: 16px; margin-top: 12px; }
+
+    .cal-month { font-size: 22px; margin-bottom: 12px; }
+    .cal-grid { gap: 3px; }
+    .cal-cell { font-size: 13px; }
+    .cal-header { font-size: 10px; }
+
+    .timer { padding: 16px 8px; gap: 4px; margin: 20px auto; }
+    .timer-unit { min-width: 48px; }
+    .timer-cell { font-size: 26px; }
+    .timer-label { font-size: 10px; margin-top: 4px; }
+    .timer-sep { font-size: 22px; padding-bottom: 16px; }
+
+    .txt-head { font-size: 22px !important; }
+    .txt { font-size: 17px; }
+    .txt-muted { font-size: 16px; }
+
+    .form { max-width: 100%; }
+    .field { padding: 13px 16px; font-size: 16px; }
+    .radio { padding: 11px 14px; font-size: 14px; }
+    .radio-label { font-size: 14px; }
+    .submit { padding: 13px; font-size: 16px; }
+
+    .map-link { padding: 11px 20px; font-size: 15px; }
+  }
+
+  /* Узкие телефоны (iPhone SE, Galaxy Fold и т.п.) */
+  @media (max-width: 400px) {
+    .section { padding: 40px 14px 50px; }
+
+    .script { font-size: 44px; }
+    .cover-name { font-size: 46px; }
+    .cover-subtitle { font-size: 19px; }
+    .cover-date { font-size: 14px; letter-spacing: 3px; }
+    .invite-name { font-size: 26px; }
+
+    .divider { width: 120px; margin: 18px auto; }
+    .chevron { width: 32px; }
+
+    .date-block { margin: 18px 0; }
+    .date-line { font-size: 32px; gap: 10px; letter-spacing: 1px; }
+    .date-time { font-size: 14px; margin-top: 10px; }
+
+    .calendar { max-width: 280px; margin: 22px auto 8px; }
+    .cal-month { font-size: 20px; margin-bottom: 10px; }
+    .cal-grid { gap: 2px; }
+    .cal-cell { font-size: 11px; }
+    .cal-header { font-size: 9px; }
+
+    .timer { padding: 14px 4px; gap: 2px; border-radius: 14px; }
+    .timer-unit { min-width: 40px; }
+    .timer-cell { font-size: 20px; }
+    .timer-label { font-size: 9px; margin-top: 3px; letter-spacing: 0.5px; }
+    .timer-sep { font-size: 16px; padding-bottom: 14px; }
+
+    .txt-head { font-size: 19px !important; }
+    .txt { font-size: 15px; }
+    .txt-muted { font-size: 14px; }
+
+    .field { padding: 12px 14px; font-size: 15px; margin-bottom: 12px; }
+    .radios { gap: 8px; margin-bottom: 16px; }
+    .radio { padding: 10px 12px; font-size: 13px; gap: 10px; }
+    .radio-dot { width: 18px; height: 18px; }
+    .radio-label { font-size: 13px; }
+    .submit { padding: 12px; font-size: 15px; }
+
+    .map-link { padding: 10px 16px; font-size: 14px; gap: 8px; }
+  }
+
+  /* Очень узкие (320px) — максимальная компактность */
+  @media (max-width: 340px) {
+    .timer-cell { font-size: 18px; }
+    .timer-unit { min-width: 36px; }
+    .timer-label { font-size: 8px; }
+    .timer-sep { font-size: 14px; padding-bottom: 12px; }
+    .date-line { font-size: 28px; gap: 8px; }
+    .cover-name { font-size: 40px; }
+    .script { font-size: 38px; }
+  }
+</style>
+</head>
+<body>
+
+<main class="page">
+
+  <!-- ========== СЕКЦИЯ 1 ========== -->
+  <section class="section">
+    <!-- Декор -->
+    <div class="decor decor--a" style="top:-90px; left:-60px; width:240px; height:240px;"></div>
+    <div class="decor decor--b" style="top:-50px; right:-80px; width:300px; height:300px;"></div>
+    <div class="decor decor--a" style="top:420px; right:-100px; width:220px; height:220px;"></div>
+    <div class="decor decor--b" style="top:1100px; left:-100px; width:260px; height:260px;"></div>
+
+    <div class="content">
+      <h1 class="script cover-name reveal" style="animation-delay:.1s;">Аяна</h1>
+      <p class="txt txt-ital cover-subtitle reveal" style="animation-delay:.3s;">Кыз узатуу</p>
+      <p class="txt txt-ital txt-spaced cover-date reveal" style="animation-delay:.5s;">24.10.2026</p>
+
+      <div class="chevron reveal" style="animation-delay:.7s;">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50 72 L22 38 L36 38 L50 54 L64 38 L78 38 Z" fill="#b8946a"/>
+        </svg>
+      </div>
+
+      <h2 class="txt txt-head reveal" style="font-size:26px; margin-top:34px; animation-delay:.9s;">Урматтуу коноктор!</h2>
+
+      <p class="txt reveal" style="font-size:18px; line-height:1.7; margin-top:16px; animation-delay:1.1s;">
+        Сиздерди сүйүктүү кызыбыз<br>
+        <span class="invite-name" style="display:block; margin:10px 0;">Аянанын</span>
+        узатуу тоюна арналган салтанаттуу<br>
+        дасторконубуздун кадырлуу коногу<br>
+        болууга чакырабыз!
+      </p>
+
+      <div class="divider reveal" style="animation-delay:1.3s;">
+        <svg viewBox="0 0 300 30" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="15" x2="125" y2="15" stroke="#b8946a" stroke-width="1"/>
+          <circle cx="150" cy="15" r="6" fill="#b8946a"/>
+          <line x1="175" y1="15" x2="300" y2="15" stroke="#b8946a" stroke-width="1"/>
+        </svg>
+      </div>
+
+      <p class="txt txt-muted reveal" style="animation-delay:1.4s;">Ак ниет менен, той ээси:</p>
+      <p class="txt txt-head reveal" style="font-size:34px; margin-top:8px; animation-delay:1.5s;">Чынара жана Ызат</p>
+
+      <div class="divider reveal" style="animation-delay:1.6s;">
+        <svg viewBox="0 0 300 30" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="15" x2="125" y2="15" stroke="#b8946a" stroke-width="1"/>
+          <circle cx="150" cy="15" r="6" fill="#b8946a"/>
+          <line x1="175" y1="15" x2="300" y2="15" stroke="#b8946a" stroke-width="1"/>
+        </svg>
+      </div>
+
+      <!-- Дата -->
+      <div class="date-block reveal" style="animation-delay:1.7s;">
+        <div class="date-line"><span class="date-ghost">24</span><span class="date-main">24</span></div>
+        <div class="date-line"><span class="date-ghost">10</span><span class="date-main">10</span></div>
+        <div class="date-line"><span class="date-ghost">2026</span><span class="date-main">2026</span></div>
+        <p class="txt date-time">башталуу убактысы: 16:00</p>
+      </div>
+
+      <!-- Календарь -->
+      <div class="calendar reveal" style="animation-delay:1.9s;">
+        <p class="cal-month">Октябрь</p>
+        <div class="cal-grid" id="calGrid"></div>
+      </div>
+
+      <!-- Таймер -->
+      <h3 class="txt txt-head reveal" style="font-size:22px; margin-top:36px; animation-delay:2.1s;">Той салтанатына</h3>
+      <p class="txt txt-head reveal" style="font-size:22px; margin-bottom:16px; animation-delay:2.2s;">чейин калган убакыт:</p>
+
+      <div class="timer reveal" style="animation-delay:2.3s;">
+        <div class="timer-unit"><span class="timer-cell" id="days">0</span><span class="timer-label">күн</span></div>
+        <span class="timer-sep">:</span>
+        <div class="timer-unit"><span class="timer-cell" id="hours">0</span><span class="timer-label">саат</span></div>
+        <span class="timer-sep">:</span>
+        <div class="timer-unit"><span class="timer-cell" id="minutes">0</span><span class="timer-label">мүнөт</span></div>
+        <span class="timer-sep">:</span>
+        <div class="timer-unit"><span class="timer-cell" id="seconds">0</span><span class="timer-label">секунд</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== СЕКЦИЯ 2: МЕСТО ========== -->
+  <section class="section section--white">
+    <div class="decor decor--a" style="top:-70px; left:-90px; width:260px; height:260px;"></div>
+    <div class="decor decor--b" style="bottom:-70px; right:-90px; width:280px; height:280px;"></div>
+
+    <div class="content">
+      <h2 class="txt txt-head reveal" style="font-size:26px; animation-delay:.1s;">Мекен-жайыбыз:</h2>
+      <p class="txt txt-head reveal" style="font-size:24px; margin-top:6px; animation-delay:.2s;">"Бай-Көл"</p>
+
+      <p class="txt reveal" style="font-size:18px; line-height:1.7; margin-top:20px; animation-delay:.3s;">
+        рестораны,<br>
+        Ысык-Көл району, Григорьевка айылы.
+      </p>
+
+      <p class="txt reveal" style="font-size:17px; line-height:1.7; margin-top:22px; animation-delay:.4s;">
+        Сиздерге ыңгайлуу болушу үчүн<br>
+        төмөндө көрсөтүлгөн "2GIS" картасын<br>
+        колдонууңузду сурайбыз:
+      </p>
+
+      <a class="map-link reveal" style="animation-delay:.5s;"
+         href="https://2gis.kg/bishkek/search/%D0%91%D0%B0%D0%B9%20%D0%BA%D0%BE%D0%BB%20%D0%B3%D1%80%D0%B8%D0%B3%D0%BE%D1%80%D0%B8%D0%B5%D0%B2%D0%BA%D0%B0/firm/70000001083912475/77.484086%2C42.718361?m=77.418192%2C42.685609%2F11.78"
+         target="_blank" rel="noopener noreferrer">
+        📍 2GIS картасынан кароо
+      </a>
+
+      <div class="divider reveal" style="animation-delay:.6s;">
+        <svg viewBox="0 0 300 30" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="15" x2="125" y2="15" stroke="#b8946a" stroke-width="1"/>
+          <circle cx="150" cy="15" r="6" fill="#b8946a"/>
+          <line x1="175" y1="15" x2="300" y2="15" stroke="#b8946a" stroke-width="1"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== СЕКЦИЯ 3: ФОРМА ========== -->
+  <section class="section">
+    <div class="decor decor--b" style="top:-60px; right:-80px; width:240px; height:240px;"></div>
+    <div class="decor decor--a" style="bottom:-80px; left:-100px; width:260px; height:260px;"></div>
+
+    <div class="content">
+      <h2 class="txt txt-head reveal" style="font-size:26px; animation-delay:.1s;">Коноктор үчүн</h2>
+      <p class="txt txt-head reveal" style="font-size:26px; margin-bottom:20px; animation-delay:.2s;">сурамжылоо</p>
+
+      <p class="txt reveal" style="font-size:18px; line-height:1.5; animation-delay:.3s;">
+        Тойго келериңизди<br>тастыктооңузду сурайбыз
+      </p>
+
+      <p class="txt reveal" style="font-size:15px; color:var(--ink-light); line-height:1.5; margin-top:14px; animation-delay:.4s;">
+        эгерде жубайыңыз менен келе турган болсоңуз,<br>экөөңүздүн тең аттарыңызды жазып калтырыңыз
+      </p>
+
+      <form class="form reveal" id="rsvpForm" style="animation-delay:.5s;" novalidate>
+        <input class="field" type="text" name="name" placeholder="Атыңызды жазыңыз" required autocomplete="name">
+
+        <div class="radios" role="radiogroup">
+          <label class="radio">
+            <input type="radio" name="attend" value="Албетте, келем" required>
+            <span class="radio-dot"></span>
+            <span class="radio-label">Албетте, келем</span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="attend" value="Жубайым менен келебиз">
+            <span class="radio-dot"></span>
+            <span class="radio-label">Жубайым менен келебиз</span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="attend" value="Тилекке каршы, келе албайм">
+            <span class="radio-dot"></span>
+            <span class="radio-label">Тилекке каршы, келе албайм</span>
+          </label>
+        </div>
+
+        <button class="submit" type="submit">Жөнөтүү</button>
+        <p id="formMsg" style="text-align:center; margin-top:14px; font-size:15px; color:var(--gold); min-height:20px;"></p>
+      </form>
+
+      <div class="divider reveal" style="animation-delay:.7s;">
+        <svg viewBox="0 0 300 30" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="15" x2="125" y2="15" stroke="#b8946a" stroke-width="1"/>
+          <circle cx="150" cy="15" r="6" fill="#b8946a"/>
+          <line x1="175" y1="15" x2="300" y2="15" stroke="#b8946a" stroke-width="1"/>
+        </svg>
+      </div>
+
+      <h2 class="txt txt-head reveal" style="font-size:24px; animation-delay:.8s;">Кубанычыбызга</h2>
+      <p class="txt txt-head reveal" style="font-size:24px; animation-delay:.9s;">орток болуңуздар!</p>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  /* ===== КАЛЕНДАРЬ (Октябрь 2026) =====
+     1 октября 2026 — четверг (Бш)
+     24 октября 2026 — суббота (Иш)
+     Сетка начинается с понедельника (Дш). */
+  (function buildCalendar() {
+    const grid = document.getElementById('calGrid');
+    if (!grid) return;
+    const headers = ['Дш','Шш','Шр','Бш','Жм','Иш','Жш'];
+
+    const days = [
+      // Пустые ячейки до 1 октября (Пн, Вт, Ср)
+      { d: '', muted: true }, { d: '', muted: true }, { d: '', muted: true },
+      // 1–4 октября
+      { d: 1 }, { d: 2 }, { d: 3 }, { d: 4 },
+      // 5–11
+      { d: 5 }, { d: 6 }, { d: 7 }, { d: 8 }, { d: 9 }, { d: 10 }, { d: 11 },
+      // 12–18
+      { d: 12 }, { d: 13 }, { d: 14 }, { d: 15 }, { d: 16 }, { d: 17 }, { d: 18 },
+      // 19–25  (24 — сегодня)
+      { d: 19 }, { d: 20 }, { d: 21 }, { d: 22 }, { d: 23 }, { d: 24, today: true }, { d: 25 },
+      // 26–31
+      { d: 26 }, { d: 27 }, { d: 28 }, { d: 29 }, { d: 30 }, { d: 31 },
+      // Ноябрь (приглушённые)
+      { d: 1, muted: true }, { d: 2, muted: true }, { d: 3, muted: true },
+      { d: 4, muted: true }, { d: 5, muted: true }, { d: 6, muted: true },
+      { d: 7, muted: true }, { d: 8, muted: true }
+    ];
+
+    headers.forEach(h => {
+      const el = document.createElement('div');
+      el.className = 'cal-cell cal-header';
+      el.textContent = h;
+      grid.appendChild(el);
+    });
+
+    days.forEach(item => {
+      const wrap = document.createElement('div');
+      if (item.today) wrap.className = 'cal-today-wrap';
+      const cell = document.createElement('div');
+      cell.className = 'cal-cell' + (item.muted ? ' cal-muted' : '') + (item.today ? ' cal-today' : '');
+      cell.textContent = item.d === '' ? '' : String(item.d).padStart(2, '0');
+      wrap.appendChild(cell);
+      grid.appendChild(wrap);
+    });
+  })();
+
+  /* ===== ТАЙМЕР (24 октября 2026, 16:00) ===== */
+  (function countdown() {
+    const target = new Date('2026-10-24T16:00:00+06:00').getTime();
+    const elD = document.getElementById('days');
+    const elH = document.getElementById('hours');
+    const elM = document.getElementById('minutes');
+    const elS = document.getElementById('seconds');
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function tick() {
+      const diff = target - Date.now();
+      if (diff <= 0) {
+        elD.textContent = '00';
+        elH.textContent = '00';
+        elM.textContent = '00';
+        elS.textContent = '00';
+        return;
+      }
+      const sec = Math.floor(diff / 1000);
+      elD.textContent = pad(Math.floor(sec / 86400));
+      elH.textContent = pad(Math.floor(sec % 86400 / 3600));
+      elM.textContent = pad(Math.floor(sec % 3600 / 60));
+      elS.textContent = pad(sec % 60);
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+
+  /* ===== ФОРМА ===== */
+  (function formHandler() {
+    const form = document.getElementById('rsvpForm');
+    const msg  = document.getElementById('formMsg');
+    if (!form) return;
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = form.querySelector('input[name="name"]').value.trim();
+      const attend = form.querySelector('input[name="attend"]:checked');
+
+      if (!name) {
+        msg.style.color = '#c0392b';
+        msg.textContent = 'Атыңызды жазыңыз';
+        return;
+      }
+      if (!attend) {
+        msg.style.color = '#c0392b';
+        msg.textContent = 'Тойго келериңизди тандаңыз';
+        return;
+      }
+
+      msg.style.color = 'var(--gold)';
+      msg.textContent = 'Рахмат, ' + name + '! Жообуңуз кабыл алынды.';
+      form.reset();
+    });
+  })();
+</script>
+
+</body>
+</html>
